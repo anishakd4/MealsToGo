@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import open from '../../../assets/open';
 import star from '../../../assets/star';
+import { Favourite } from '../../../components/favourites/favourite.component';
 import { Text } from '../../../components/typography/text.component';
 import {
 	Address,
@@ -31,7 +32,10 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
 
 	return (
 		<RestaurantCard elevation={5}>
-			<RestaurantCardCover key={name} source={{ uri: photos[0] }} />
+			<View>
+				<Favourite restaurant={restaurant} />
+				<RestaurantCardCover key={name} source={{ uri: photos[0] }} />
+			</View>
 			<Info>
 				<Text variant='label'>{name}</Text>
 				<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
