@@ -10,10 +10,22 @@ import {
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 import { Navigation } from './src/infrastructure/navigation';
-import { FavouritesContextProvider } from './src/services/favourites/favourites.context';
-import { LocationContextProvider } from './src/services/location/location.context';
-import { RestaurantsContextProvider } from './src/services/restaurants/restaurants.context';
+import { AuthenticationContextProvider } from './src/services/authentication/authentication.context';
+
+const firebaseConfig = {
+	apiKey: 'AIzaSyD7Etz_GEMn7rON9qeHmLUqYl9ByrGQT1g',
+	authDomain: 'mealstogo-9b5c9.firebaseapp.com',
+	projectId: 'mealstogo-9b5c9',
+	storageBucket: 'mealstogo-9b5c9.appspot.com',
+	messagingSenderId: '193083665253',
+	appId: '1:193083665253:web:8e52c1732509cace710f8c',
+};
+
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
 
 // const isAndroid = Platform.OS === 'android';
 
@@ -29,16 +41,13 @@ export default function App() {
 	if (!oswaldLoaded || !latoLoaded) {
 		return null;
 	}
+
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<FavouritesContextProvider>
-					<LocationContextProvider>
-						<RestaurantsContextProvider>
-							<Navigation />
-						</RestaurantsContextProvider>
-					</LocationContextProvider>
-				</FavouritesContextProvider>
+				<AuthenticationContextProvider>
+					<Navigation />
+				</AuthenticationContextProvider>
 			</ThemeProvider>
 		</>
 	);
